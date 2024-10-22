@@ -12,22 +12,32 @@ try {
 
     // Create the database if it doesn't exist
     $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbname");
-    // echo "Database created successfully!<br>"; // Comment out or remove this line
 
     // Use the new database
     $pdo->exec("USE $dbname");
 
-    // Create the `users` table
+    // Create the `users` table with additional profile fields
     $usersTable = "CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
+        phone VARCHAR(20), -- New field for phone number
+        location VARCHAR(255), -- New field for location
+        postal_code VARCHAR(20), -- New field for postal code
         password VARCHAR(255) NOT NULL,
         role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($usersTable);
-    // echo "Users table created successfully!<br>"; // Comment out or remove this line
+
+    // Alter the `users` table to add the new columns if they don't already exist
+    $alterUsersTable = "
+        ALTER TABLE users 
+        ADD COLUMN IF NOT EXISTS phone VARCHAR(20),
+        ADD COLUMN IF NOT EXISTS location VARCHAR(255),
+        ADD COLUMN IF NOT EXISTS postal_code VARCHAR(20)
+    ";
+    $pdo->exec($alterUsersTable);
 
     // Create the `events` table
     $eventsTable = "CREATE TABLE IF NOT EXISTS events (
@@ -43,7 +53,6 @@ try {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($eventsTable);
-    // echo "Events table created successfully!<br>"; // Comment out or remove this line
 
     // Create the `registrations` table
     $registrationsTable = "CREATE TABLE IF NOT EXISTS registrations (
@@ -55,7 +64,6 @@ try {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($registrationsTable);
-    // echo "Registrations table created successfully!<br>"; // Comment out or remove this line
 
     // Alter the `registrations` table to add new columns if they don't exist
     $alterRegistrationsTable = "
@@ -67,7 +75,6 @@ try {
         ADD COLUMN IF NOT EXISTS address TEXT
     ";
     $pdo->exec($alterRegistrationsTable);
-    // echo "Registrations table altered successfully with new columns!<br>"; // Comment out or remove this line
 
 } catch (PDOException $e) {
     echo "Error creating or modifying the database: " . $e->getMessage();

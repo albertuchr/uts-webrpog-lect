@@ -67,7 +67,7 @@ $registered_events = $stmt->fetchAll();
             border: 1px solid #d6ad60; /* Gold border around the table */
         }
         .table th, .table td {
-            border: 1px solid #d6ad60; /* Gold borders for table cells */
+            border: 1px solid #ffff; /* Gold borders for table cells */
         }
         .table th {
             background-color: #d6ad60; /* Gold for table headers */

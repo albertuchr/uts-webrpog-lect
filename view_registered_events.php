@@ -7,6 +7,20 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Handle event cancellation
+if (isset($_GET['cancel_event_id'])) {
+    $cancel_event_id = $_GET['cancel_event_id'];
+
+    // Delete the registration for the user and event
+    $stmt = $pdo->prepare("DELETE FROM registrations WHERE event_id = ? AND user_id = ?");
+    $stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
+
+    // Redirect back to the registered events page to avoid re-submission
+    header("Location: view_registered_events.php");
+    exit;
+}
+
+// Fetch the registered events for the current user
 $stmt = $pdo->prepare("SELECT events.*, registrations.full_name, registrations.email, registrations.phone_number, registrations.date_of_birth, registrations.address 
                        FROM registrations
                        JOIN events ON registrations.event_id = events.id
@@ -92,12 +106,12 @@ $registered_events = $stmt->fetchAll();
             color: #f4ebd0; /* Cream on hover */
         }
         .btn-cancel {
-    background-color: #f4ebd0; /* Cream for cancel button */
-    color: #122620; /* Dark text */
-    padding-left: 10px;  /* Add padding to the left */
-    padding-right: 10px; /* Add padding to the right */
-    margin-left: 10px;   /* Add margin on the left to give space between buttons */
-}      
+            background-color: #f4ebd0; /* Cream for cancel button */
+            color: #122620; /* Dark text */
+            padding-left: 10px;  /* Add padding to the left */
+            padding-right: 10px; /* Add padding to the right */
+            margin-left: 10px;   /* Add margin on the left to give space between buttons */
+        }      
     </style>
 </head>
 <body>

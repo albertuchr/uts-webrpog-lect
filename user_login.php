@@ -171,12 +171,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         p a:hover {
             text-decoration: underline;
         }
+
+        /* Additional styling for the logo */
+        .logo-container {
+            position: fixed; /* Use fixed so it doesn't interfere with animations */
+            top: 20px;
+            right: 20px;
+            z-index: 500; /* Keep it on top of everything */
+        }
+
+        .logo-container img {
+            max-width: 80px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Admin Logo - Fixed and doesn't interfere with animations -->
+    <div class="logo-container">
+        <a href="admin_login.php">
+            <img src="logo.jpg" alt="Admin Logo" title="Go to Admin Login">
+        </a>
+    </div>
+
     <div class="container">
         <div class="top"></div>
         <div class="bottom"></div>
+
         <div class="center">
             <h2>Please Sign In</h2>
             <?php if (isset($error)) { echo "<p style='color: red;'>$error</p>"; } ?>
@@ -189,5 +211,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Don't have an account? <a href="register.php">Register here</a></p>
         </div>
     </div>
+
 </body>
 </html>

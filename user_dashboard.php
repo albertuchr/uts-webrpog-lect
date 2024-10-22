@@ -33,7 +33,7 @@ $events = $stmt->fetchAll();
             color: white;
         }
         .table th {
-            background-color: #b68d40; /* Tan */
+            background-color: #b68d40; 
             color: white;
         }
         .table td {

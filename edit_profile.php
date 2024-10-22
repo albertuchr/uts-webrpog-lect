@@ -38,32 +38,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Edit Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
+        /* Palet Warna */
+        :root {
+            --tan: #d2b48c;
+            --cream: #f5f5dc;
+            --charcoal: #36454f;
+            --gold: #d4af37;
         }
+
+        body {
+            background-color: var(--cream);
+            font-family: 'Arial', sans-serif;
+            color: var(--charcoal);
+            margin: 0;
+            padding: 0;
+        }
+
         .profile-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: var(--tan);
         }
+
         .profile-card {
-            width: 700px;
+            width: 100%;
+            max-width: 700px;
             background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
+
+        .profile-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        label {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        input.form-control {
+            border: 1px solid var(--charcoal);
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
         .btn-save {
-            background-color: #ff6b6b;
+            background-color: var(--gold);
             border: none;
             border-radius: 50px;
             color: white;
             padding: 12px 30px;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
+
         .btn-save:hover {
-            background-color: #ff5252;
+            background-color: var(--charcoal);
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 20px;
+            }
+
+            .btn-save {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>

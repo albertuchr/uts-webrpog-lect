@@ -1,12 +1,26 @@
 <?php
 session_start();
-require 'db_config.php'; 
+require 'db_config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: user_login.php");
     exit;
 }
 
+// Handle event cancellation
+if (isset($_GET['cancel_event_id'])) {
+    $cancel_event_id = $_GET['cancel_event_id'];
+
+    // Delete the registration for the user and event
+    $stmt = $pdo->prepare("DELETE FROM registrations WHERE event_id = ? AND user_id = ?");
+    $stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
+
+    // Redirect back to the registered events page to avoid re-submission
+    header("Location: view_registered_events.php");
+    exit;
+}
+
+// Fetch the registered events for the current user
 $stmt = $pdo->prepare("SELECT events.*, registrations.full_name, registrations.email, registrations.phone_number, registrations.date_of_birth, registrations.address 
                        FROM registrations
                        JOIN events ON registrations.event_id = events.id
@@ -33,7 +47,6 @@ $registered_events = $stmt->fetchAll();
             font-family: garamond;
             font-size: 50px;
         }
-
         table {
             background-color: #d6ad60;
             border-radius: 8px;

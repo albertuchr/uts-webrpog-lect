@@ -69,20 +69,13 @@ $events = $stmt->fetchAll();
             background-color: #f4ebd0; /* Cream background on hover */
             color: #122620; /* Dark text on hover */
         }
-        .table {
-            border-radius: 10px; /* Add border radius to table */
-            overflow: hidden;
-        }
         .table th {
             background-color: #d6ad60; /* Gold for table headers */
             color: #122620; /* Dark text on gold */
         }
         .table td {
-            background-color: #f4ebd0; /* Light cream background for table data cells */
+            background-color: #ffffff; /* White background for table data cells */
             color: #122620; /* Dark text for readability */
-        }
-        .table-bordered {
-            border: 1px solid #d6ad60; /* Gold border for table */
         }
         .footer {
             color: #f4ebd0; /* Cream text for footer */
@@ -204,9 +197,6 @@ $events = $stmt->fetchAll();
         <a href="view_registered_events.php" class="btn btn-custom">View Events I've Registered</a>
 
         <br><br>
-        <h3>Profile Management</h3>
-        <a href="view_profile.php" class="btn btn-outline-dark">View Profile</a>
-        <a href="edit_profile.php" class="btn btn-outline-dark">Edit Profile</a>
     </div>
 
     <!-- Footer -->

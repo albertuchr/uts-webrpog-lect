@@ -69,7 +69,7 @@ $registrations = $reg_stmt->fetchAll();
         .profile-header {
             font-size: 2.5rem;
             font-weight: bold;
-            color: var(--gold);
+            color: var(charcoal);
             text-align: center;
             margin-bottom: 30px;
         }

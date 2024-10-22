@@ -35,6 +35,81 @@ $events = $stmt->fetchAll();
         th {
             background-color: #f2f2f2;
         }
+
+        img {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+        }
+
+        /* Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%; /* Set default width */
+            max-width: 700px; /* Max width */
+        }
+
+        /* Caption for the modal image */
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+        }
+
+        /* Close button */
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover, .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animation */
+        .modal-content, .caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
     </style>
 </head>
 <body>
@@ -51,6 +126,7 @@ $events = $stmt->fetchAll();
         <th>Max Participants</th>
         <th>Status</th>
         <th>Registrants</th> <!-- Show total registrants -->
+        <th>Image</th> <!-- New column for event image -->
         <th>Actions</th>
     </tr>
 
@@ -64,6 +140,14 @@ $events = $stmt->fetchAll();
         <td><?= htmlspecialchars($event['status']); ?></td>
         <td><?= htmlspecialchars($event['total_registrants']); ?></td> <!-- Display registrants count -->
         <td>
+            <!-- Display event image if available -->
+            <?php if ($event['image']): ?>
+                <img src="uploads/<?= htmlspecialchars($event['image']); ?>" alt="Event Image" onclick="openModal('uploads/<?= htmlspecialchars($event['image']); ?>')">
+            <?php else: ?>
+                No Image
+            <?php endif; ?>
+        </td>
+        <td>
             <a href="manage_event.php?id=<?= $event['id']; ?>&action=edit">Edit</a> |
             <a href="manage_event.php?id=<?= $event['id']; ?>&action=delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a> |
             <a href="view_registrants.php?event_id=<?= $event['id']; ?>">View Registrants</a> <!-- Link to view registrants -->
@@ -71,6 +155,13 @@ $events = $stmt->fetchAll();
     </tr>
     <?php endforeach; ?>
 </table>
+
+<!-- Modal for image zoom -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div class="caption" id="caption"></div>
+</div>
 
 <!-- Add a link to create a new event -->
 <br>
@@ -84,6 +175,25 @@ $events = $stmt->fetchAll();
 
 <!-- Logout link -->
 <a href="admin_logout.php">Logout</a>
+
+<script>
+    // Function to open modal and show full-size image
+    function openModal(imageUrl) {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+        var captionText = document.getElementById("caption");
+
+        modal.style.display = "block";
+        modalImage.src = imageUrl;
+        captionText.innerHTML = imageUrl; // Optionally, show the image name or some description
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+</script>
 
 </body>
 </html>

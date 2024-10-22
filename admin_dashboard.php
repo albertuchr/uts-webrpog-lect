@@ -39,7 +39,7 @@ $events = $stmt->fetchAll();
         img {
             max-width: 100px;
             height: auto;
-            cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+            cursor: pointer; 
         }
 
         /* Modal (background) */

@@ -20,27 +20,72 @@ $events = $stmt->fetchAll();
     <title>User Dashboard - Events</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f4ebd0; /* Cream */
-            color: #122620; /* Charcoal */
+            background-color: #122620; /* Dark Charcoal Background */
+            color: #f4ebd0; /* Cream for Text */
+            font-family: 'Poppins', sans-serif; /* Poppins for general text */
         }
         .navbar, .footer {
-            background-color: #b68d40; /* Tan */
+            background-color: #122620; /* Match background color */
         }
-        .btn-custom {
-            background-color: #d6ad60; /* Gold */
-            color: white;
+        .navbar-brand {
+            font-family: 'Playfair Display', serif; /* Stylish serif font for logo */
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d6ad60 !important; /* Gold color for branding */
         }
-        .table th {
-            background-color: #b68d40; 
-            color: white;
+        .navbar-nav .nav-link {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #f4ebd0 !important; /* Cream for navbar links */
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
-        .table td {
-            background-color: #f4ebd0; /* Cream */
+        .navbar-nav .nav-link:hover {
+            color: #d6ad60 !important; /* Gold on hover */
+            text-decoration: underline;
         }
         h2, h3 {
-            color: #122620; /* Charcoal */
+            font-family: 'Playfair Display', serif; /* Stylish serif font for headers */
+            color: #f4ebd0; /* Cream for headings */
+        }
+        h2 {
+            font-size: 2.5rem; /* Large heading for welcome message */
+        }
+        h3 {
+            font-size: 1.8rem; /* Slightly smaller for subheadings */
+        }
+        .btn-custom {
+            background-color: #d6ad60; /* Gold for buttons */
+            color: #122620; /* Dark text on gold buttons */
+        }
+        .btn-outline-dark {
+            border-color: #f4ebd0; /* Cream border for outline buttons */
+            color: #f4ebd0; /* Cream text */
+        }
+        .btn-outline-dark:hover {
+            background-color: #f4ebd0; /* Cream background on hover */
+            color: #122620; /* Dark text on hover */
+        }
+        .table th {
+            background-color: #d6ad60; /* Gold for table headers */
+            color: #122620; /* Dark text on gold */
+        }
+        .table td {
+            background-color: #ffffff; /* White background for table data cells */
+            color: #122620; /* Dark text for readability */
+        }
+        .footer {
+            color: #f4ebd0; /* Cream text for footer */
+        }
+        a {
+            color: #d6ad60; /* Gold links */
+        }
+        a:hover {
+            color: #f4ebd0; /* Cream on hover */
         }
     </style>
 </head>

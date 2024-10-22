@@ -23,124 +23,82 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #122620; /* Charcoal */
-            color: #f4ebd0; /* Cream */
-            font-family: 'Garamond', serif;
+            background-color: #122620;
         }
-
-        .container {
-            margin-top: 30px;
-            padding: 30px;
-            border-radius: 10px;
-            background-color: rgba(18, 38, 32, 0.9);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
         h2 {
+            color: #B68D40;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            font-weight: bold;
+            margin-top: 20px;
+            font-family: garamond;
+            font-size: 50px;
         }
 
         table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        th {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #f4ebd0;
-            background-color: #b68d40;
-            color: #122620;
-            text-transform: uppercase;
+        .table th {
+            background-color: #d6ad60; /* Gold background for table headers */
+            color: white;
+            font-family: futura;
         }
-
-        td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #f4ebd0;
-            background-color: #f4ebd0;
+        .table td {
+            background-color: #f4ebd0; /* White background for table data */
             color: #122620;
         }
-
-        a {
-            text-decoration: none;
-            color: #d6ad60; /* Gold */
-            font-weight: bold;
-        }
-
-        a:hover {
-            color: #b68d40; /* Darker gold on hover */
-        }
-
-        .btn-back {
-            margin-top: 20px;
-            display: block;
-            text-align: center;
-            background-color: #d6ad60;
-            color: #122620;
-            border: none;
-            padding: 10px 20px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-back:hover {
-            background-color: #b68d40;
+        .btn-delete {
+            background-color: #B68D40; /* Tan color */
             color: white;
         }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 2em;
-            }
-
-            table {
-                font-size: 0.9em;
-            }
+        .btn-delete:hover {
+            opacity: 0.85;
+        }
+        .table-wrapper {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 90%;
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h2>Registered Users</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user): ?>
-                <tr>
-                    <td><?= htmlspecialchars($user['name']); ?></td>
-                    <td><?= htmlspecialchars($user['email']); ?></td>
-                    <td>
-                        <a href="manage_users.php?id=<?= $user['id']; ?>&action=delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+<h2>Manage Registered Users</h2>
 
-        <a href="admin_dashboard.php" class="btn-back">Back to Dashboard</a>
-    </div>
+<div class="table-wrapper">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user): ?>
+            <tr>
+                <td><?= htmlspecialchars($user['name']); ?></td>
+                <td><?= htmlspecialchars($user['email']); ?></td>
+                <td>
+                    <a href="manage_users.php?id=<?= $user['id']; ?>&action=delete" class="btn btn-sm btn-delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a href="admin_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

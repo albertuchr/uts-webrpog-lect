@@ -29,96 +29,162 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <style>
-        /* Universal Styles */
+        @import url("https://fonts.googleapis.com/css?family=Raleway:400,700");
+
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
         body {
+            min-height: 100vh;
+            font-family: "Raleway", sans-serif;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #121212; /* Dark background */
-            color: #e0e0e0; /* Light text color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 0;
+            background-color: #f5f5dc; /* Cream background */
         }
 
-        /* Container for forms */
         .container {
+            position: absolute;
             width: 100%;
-            max-width: 400px; /* Maximum width of the form */
-            background-color: #1e1e1e; /* Slightly lighter background for forms */
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            height: 100%;
+            overflow: hidden;
         }
 
-        /* Form styles */
-        .form-container {
+        .container:hover .top:before, 
+        .container:hover .top:after,
+        .container:hover .bottom:before, 
+        .container:hover .bottom:after,
+        .container:active .top:before, 
+        .container:active .top:after,
+        .container:active .bottom:before, 
+        .container:active .bottom:after {
+            margin-left: 200px;
+            transform-origin: -200px 50%;
+            transition-delay: 0s;
+        }
+
+        .container:hover .center, 
+        .container:active .center {
+            opacity: 1;
+            transition-delay: 0.2s;
+        }
+
+        .top:before, .top:after, 
+        .bottom:before, .bottom:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 200vmax;
+            height: 200vmax;
+            top: 50%;
+            left: 50%;
+            margin-top: -100vmax;
+            transform-origin: 0 50%;
+            transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+            z-index: 10;
+            opacity: 0.65;
+            transition-delay: 0.2s;
+        }
+
+        .top:before {
+            transform: rotate(45deg);
+            background: #d2b48c; /* Tan */
+        }
+
+        .top:after {
+            transform: rotate(135deg);
+            background: #f5f5dc; /* Cream */
+        }
+
+        .bottom:before {
+            transform: rotate(-45deg);
+            background: #d4af37; /* Gold */
+        }
+
+        .bottom:after {
+            transform: rotate(-135deg);
+            background: #333333; /* Charcoal */
+        }
+
+        .center {
+            position: absolute;
+            width: 400px;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
+            color: #333; /* Charcoal */
         }
 
-        /* Inputs */
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            background-color: #2a2a2a; /* Input field background */
-            border: 1px solid #3a3a3a; /* Input border */
-            color: #e0e0e0; /* Input text color */
+        .center input {
+            width: 100%;
+            padding: 15px;
+            margin: 5px;
+            border-radius: 1px;
+            border: 1px solid #d4af37; /* Gold border */
+            font-family: inherit;
+        }
+
+        .center button {
             padding: 10px;
-            margin: 10px 0; /* Space between inputs */
-            border-radius: 4px; /* Rounded corners */
-            font-size: 16px; /* Font size */
+            margin-top: 10px;
+            width: 100%;
+            background-color: #d4af37; /* Gold */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        /* Input focus effect */
-        input:focus {
-            border-color: #6200ea; /* Border color on focus */
-            outline: none; /* Remove outline */
+        .center button:hover {
+            background-color: #b58a2d; /* Darker Gold */
         }
 
-        /* Button styles */
-        button {
-            background-color: #6200ea; /* Button background color */
-            color: #ffffff; /* Button text color */
-            padding: 10px;
-            border: none; /* Remove border */
-            border-radius: 4px; /* Rounded corners */
-            cursor: pointer; /* Pointer effect */
-            font-size: 16px; /* Font size */
-            margin-top: 10px; /* Space above buttons */
-            transition: background-color 0.3s; /* Transition effect */
+        h2 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333333; /* Charcoal */
         }
 
-        /* Button hover effect */
-        button:hover {
-            background-color: #3700b3; /* Darker shade on hover */
+        p {
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-        /* Responsive Styles */
-        @media (max-width: 480px) {
-            .container {
-                width: 90%; /* Full width on small screens */
-            }
-            input[type="text"],
-            input[type="email"],
-            input[type="password"],
-            button {
-                font-size: 14px; /* Decrease font size for smaller screens */
-            }
+        p a {
+            color: #d4af37; /* Gold */
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
+        <div class="top"></div>
+        <div class="bottom"></div>
+        <div class="center">
+            <h2>Please Sign In</h2>
             <form method="post">
-                <h2>Register</h2>
-                <?php if (isset($error)) { echo "<p style='color: red;'>$error</p>"; } ?>
-                <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="name" placeholder="Name" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Register</button>
+                <button type="submit">Sign Up</button>
             </form>
+            <h2>&nbsp;</h2>
             <p>Already have an account? <a href="user_login.php">Login here</a></p>
         </div>
     </div>

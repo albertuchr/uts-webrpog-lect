@@ -13,21 +13,114 @@ $events = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Events</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+        }
+
+        /* Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%; /* Set default width */
+            max-width: 700px; /* Max width */
+        }
+
+        /* Caption for the modal image */
+        .caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+        }
+
+        /* Close button */
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover, .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animation */
+        .modal-content, .caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+    </style>
 </head>
 <body>
 
 <h2>Welcome, <?= htmlspecialchars($_SESSION['user_name']); ?></h2>
 <h3>Available Events</h3>
 
-<table border="1">
+<table>
     <tr>
         <th>Event Name</th>
         <th>Date</th>
         <th>Time</th>
         <th>Location</th>
+        <th>Image</th> <!-- New column for event image -->
         <th>Details</th>
         <th>Actions</th>
     </tr>
@@ -38,6 +131,14 @@ $events = $stmt->fetchAll();
         <td><?= htmlspecialchars($event['date']); ?></td>
         <td><?= htmlspecialchars($event['time']); ?></td>
         <td><?= htmlspecialchars($event['location']); ?></td>
+        <td>
+            <!-- Display event image if available -->
+            <?php if ($event['image']): ?>
+                <img src="uploads/<?= htmlspecialchars($event['image']); ?>" alt="Event Image" onclick="openModal('uploads/<?= htmlspecialchars($event['image']); ?>')">
+            <?php else: ?>
+                No Image
+            <?php endif; ?>
+        </td>
         <td><?= htmlspecialchars($event['description']); ?></td>
         <td>
             <a href="event_details.php?event_id=<?= $event['id']; ?>">View Details</a>
@@ -46,17 +147,39 @@ $events = $stmt->fetchAll();
     <?php endforeach; ?>
 </table>
 
-<br><br>
+<!-- Modal for image zoom -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div class="caption" id="caption"></div>
+</div>
+
 <h3>My Registered Events</h3>
 <a href="view_registered_events.php">View Events I've Registered</a>
 
-<br><br>
 <h3>Profile Management</h3>
 <a href="view_profile.php">View Profile</a> |
 <a href="edit_profile.php">Edit Profile</a>
 
 <br><br>
 <a href="user_logout.php">Logout</a>
+
+<script>
+    // Function to open modal and show full-size image
+    function openModal(imageUrl) {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+
+        modal.style.display = "block";
+        modalImage.src = imageUrl;
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+</script>
 
 </body>
 </html>

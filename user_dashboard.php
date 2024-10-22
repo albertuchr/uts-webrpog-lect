@@ -199,7 +199,6 @@ $events = $stmt->fetchAll();
         <br><br>
     </div>
 
-    <!-- Footer -->
     <footer class="footer text-center py-3">
         <div class="container">
             <span>&copy; 2024 Event Dashboard</span>

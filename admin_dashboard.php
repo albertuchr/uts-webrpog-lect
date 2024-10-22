@@ -181,7 +181,7 @@ $events = $stmt->fetchAll();
     function openModal(imageUrl) {
         var modal = document.getElementById("imageModal");
         var modalImage = document.getElementById("modalImage");
-        var captionText = document.getElementById("caption");
+        var captionText = document.getElementById("");
 
         modal.style.display = "block";
         modalImage.src = imageUrl;

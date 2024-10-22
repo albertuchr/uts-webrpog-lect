@@ -25,6 +25,22 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <html>
 <head>
     <title>Manage Users</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
 
@@ -47,7 +63,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     <?php endforeach; ?>
 </table>
 
-<a href="update_dashboard.php">Back to Dashboard</a>
+<a href="admin_dashboard.php">Back to Dashboard</a>
 
 </body>
 </html>

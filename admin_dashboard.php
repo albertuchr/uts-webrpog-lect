@@ -50,7 +50,7 @@ $events = $stmt->fetchAll();
         <th>Location</th>
         <th>Max Participants</th>
         <th>Status</th>
-        <th>Registrants</th> <!-- New column for registrant count -->
+        <th>Registrants</th> <!-- Show total registrants -->
         <th>Actions</th>
     </tr>
 
@@ -62,7 +62,7 @@ $events = $stmt->fetchAll();
         <td><?= htmlspecialchars($event['location']); ?></td>
         <td><?= htmlspecialchars($event['max_participants']); ?></td>
         <td><?= htmlspecialchars($event['status']); ?></td>
-        <td><?= htmlspecialchars($event['total_registrants']); ?></td> <!-- Show total registrants -->
+        <td><?= htmlspecialchars($event['total_registrants']); ?></td> <!-- Display registrants count -->
         <td>
             <a href="manage_event.php?id=<?= $event['id']; ?>&action=edit">Edit</a> |
             <a href="manage_event.php?id=<?= $event['id']; ?>&action=delete" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a> |
@@ -76,6 +76,13 @@ $events = $stmt->fetchAll();
 <br>
 <a href="create_event.php">Create New Event</a>
 <br><br>
+
+<!-- Add a link to manage users -->
+<h3>Manage Users</h3>
+<a href="manage_users.php">View All Users</a>
+<br><br>
+
+<!-- Logout link -->
 <a href="admin_logout.php">Logout</a>
 
 </body>

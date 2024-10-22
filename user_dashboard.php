@@ -27,7 +27,7 @@ $events = $stmt->fetchAll();
             color: #f4ebd0; /* Cream for Text */
             font-family: 'Poppins', sans-serif; /* Poppins for general text */
         }
-        .navbar, .footer {
+        vbar, .footer {
             background-color: #122620; /* Match background color */
         }
         .navbar-brand {
@@ -43,7 +43,7 @@ $events = $stmt->fetchAll();
             padding-left: 1.5rem;
             padding-right: 1.5rem;
         }
-        .navbar-nav .nav-link:hover {
+        .navbar-nav .nav-link:hover {.na
             color: #d6ad60 !important; /* Gold on hover */
             text-decoration: underline;
         }

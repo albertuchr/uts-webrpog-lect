@@ -9,15 +9,26 @@ if (!isset($_SESSION['user_id'])) {
 
 // Handle event cancellation
 if (isset($_GET['cancel_event_id'])) {
-    $cancel_event_id = $_GET['cancel_event_id'];
+    $cancel_event_id = intval($_GET['cancel_event_id']); // Ensure it's an integer to prevent SQL injection
 
-    // Delete the registration for the user and event
-    $stmt = $pdo->prepare("DELETE FROM registrations WHERE event_id = ? AND user_id = ?");
-    $stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
+    // Check if the user has actually registered for the event
+    $check_stmt = $pdo->prepare("SELECT * FROM registrations WHERE event_id = ? AND user_id = ?");
+    $check_stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
+    $registration = $check_stmt->fetch();
 
-    // Redirect back to the registered events page to avoid re-submission
-    header("Location: view_registered_events.php");
-    exit;
+    if ($registration) {
+        // Proceed with deleting the registration
+        $delete_stmt = $pdo->prepare("DELETE FROM registrations WHERE event_id = ? AND user_id = ?");
+        $delete_stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
+
+        // Redirect back to the registered events page to avoid re-submission
+        header("Location: view_registered_events.php");
+        exit;
+    } else {
+        // If the event is not found for the user, display an error message or redirect
+        echo "Error: Registration not found or already canceled.";
+        exit;
+    }
 }
 
 // Fetch the registered events for the current user

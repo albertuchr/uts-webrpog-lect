@@ -20,94 +20,74 @@ $events = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Events</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            background-color: #122620; /* Dark Charcoal Background */
+            color: #f4ebd0; /* Cream for Text */
+            font-family: 'Poppins', sans-serif; /* Poppins for general text */
         }
-        table, th, td {
-            border: 1px solid black;
+        .navbar, .footer {
+            background-color: #122620; /* Match background color */
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
+        .navbar-brand {
+            font-family: 'Playfair Display', serif; /* Stylish serif font for logo */
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d6ad60 !important; /* Gold color for branding */
         }
-        th {
-            background-color: #f2f2f2;
+        .navbar-nav .nav-link {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #f4ebd0 !important; /* Cream for navbar links */
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
-
-        img {
-            max-width: 100px;
-            height: auto;
-            cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+        .navbar-nav .nav-link:hover {
+            color: #d6ad60 !important; /* Gold on hover */
+            text-decoration: underline;
         }
-
-        /* Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.8); /* Black background with opacity */
+        h2, h3 {
+            font-family: 'Playfair Display', serif; /* Stylish serif font for headers */
+            color: #f4ebd0; /* Cream for headings */
         }
-
-        /* Modal Content (image) */
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%; /* Set default width */
-            max-width: 700px; /* Max width */
+        h2 {
+            font-size: 2.5rem; /* Large heading for welcome message */
         }
-
-        /* Caption for the modal image */
-        .caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
+        h3 {
+            font-size: 1.8rem; /* Slightly smaller for subheadings */
         }
-
-        /* Close button */
-        .close {
-            position: absolute;
-            top: 30px;
-            right: 50px;
-            color: #fff;
-            font-size: 35px;
-            font-weight: bold;
-            transition: 0.3s;
+        .btn-custom {
+            background-color: #d6ad60; /* Gold for buttons */
+            color: #122620; /* Dark text on gold buttons */
         }
-
-        .close:hover, .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
+        .btn-outline-dark {
+            border-color: #f4ebd0; /* Cream border for outline buttons */
+            color: #f4ebd0; /* Cream text */
         }
-
-        /* Animation */
-        .modal-content, .caption {
-            -webkit-animation-name: zoom;
-            -webkit-animation-duration: 0.6s;
-            animation-name: zoom;
-            animation-duration: 0.6s;
+        .btn-outline-dark:hover {
+            background-color: #f4ebd0; /* Cream background on hover */
+            color: #122620; /* Dark text on hover */
         }
-
-        @-webkit-keyframes zoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
+        .table th {
+            background-color: #d6ad60; /* Gold for table headers */
+            color: #122620; /* Dark text on gold */
         }
-
-        @keyframes zoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
+        .table td {
+            background-color: #ffffff; /* White background for table data cells */
+            color: #122620; /* Dark text for readability */
+        }
+        .footer {
+            color: #f4ebd0; /* Cream text for footer */
+        }
+        a {
+            color: #d6ad60; /* Gold links */
+        }
+        a:hover {
+            color: #f4ebd0; /* Cream on hover */
         }
     </style>
 </head>

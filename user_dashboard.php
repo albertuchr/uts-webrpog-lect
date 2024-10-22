@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Fetch all events available for registration
 $stmt = $pdo->query("SELECT * FROM events WHERE status = 'open'");
 $events = $stmt->fetchAll();
 ?>

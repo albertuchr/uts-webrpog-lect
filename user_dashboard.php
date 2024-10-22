@@ -14,7 +14,10 @@ $events = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Events</title>
@@ -115,54 +118,72 @@ $events = $stmt->fetchAll();
         <h2>Welcome, <?= htmlspecialchars($_SESSION['user_name']); ?></h2>
         <h3>Available Events</h3>
 
-        <!-- Events Table -->
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Event Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Location</th>
-                    <th>Details</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($events as $event): ?>
-                <tr>
-                    <td><?= htmlspecialchars($event['name']); ?></td>
-                    <td><?= htmlspecialchars($event['date']); ?></td>
-                    <td><?= htmlspecialchars($event['time']); ?></td>
-                    <td><?= htmlspecialchars($event['location']); ?></td>
-                    <td><?= htmlspecialchars($event['description']); ?></td>
-                    <td>
-                        <a href="event_details.php?event_id=<?= $event['id']; ?>" class="btn btn-custom btn-sm">View Details</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Location</th>
+        <th>Image</th> <!-- New column for event image -->
+        <th>Details</th>
+        <th>Actions</th>
+    </tr>
 
-        <br>
-        <h3>My Registered Events</h3>
-        <a href="view_registered_events.php" class="btn btn-custom">View Events I've Registered</a>
+    <?php foreach ($events as $event): ?>
+    <tr>
+        <td><?= htmlspecialchars($event['name']); ?></td>
+        <td><?= htmlspecialchars($event['date']); ?></td>
+        <td><?= htmlspecialchars($event['time']); ?></td>
+        <td><?= htmlspecialchars($event['location']); ?></td>
+        <td>
+            <!-- Display event image if available -->
+            <?php if ($event['image']): ?>
+                <img src="uploads/<?= htmlspecialchars($event['image']); ?>" alt="Event Image" onclick="openModal('uploads/<?= htmlspecialchars($event['image']); ?>')">
+            <?php else: ?>
+                No Image
+            <?php endif; ?>
+        </td>
+        <td><?= htmlspecialchars($event['description']); ?></td>
+        <td>
+            <a href="event_details.php?event_id=<?= $event['id']; ?>">View Details</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
 
-        <br><br>
-        <h3>Profile Management</h3>
-        <a href="view_profile.php" class="btn btn-outline-dark">View Profile</a>
-        <a href="edit_profile.php" class="btn btn-outline-dark">Edit Profile</a>
+<!-- Modal for image zoom -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+    <div class="caption" id="caption"></div>
+</div>
 
-    </div>
+<h3>My Registered Events</h3>
+<a href="view_registered_events.php">View Events I've Registered</a>
 
-    <!-- Footer -->
-    <footer class="footer text-center py-3">
-        <div class="container">
-            <span>&copy; 2024 Event Dashboard</span>
-        </div>
-    </footer>
+<h3>Profile Management</h3>
+<a href="view_profile.php">View Profile</a> |
+<a href="edit_profile.php">Edit Profile</a>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<br><br>
+<a href="user_logout.php">Logout</a>
+
+<script>
+    // Function to open modal and show full-size image
+    function openModal(imageUrl) {
+        var modal = document.getElementById("imageModal");
+        var modalImage = document.getElementById("modalImage");
+
+        modal.style.display = "block";
+        modalImage.src = imageUrl;
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+</script>
 
 </body>
 </html>

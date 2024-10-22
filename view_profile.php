@@ -32,14 +32,14 @@ $registrations = $reg_stmt->fetchAll();
     <style>
         /* Palet Warna Baru */
         :root {
-            --tan: #d2b48c;
-            --cream: #f5f5dc;
-            --charcoal: #36454f;
-            --gold: #d4af37;
+            --tan: #b68d40;
+            --cream: #f4ebd0;
+            --charcoal: #122620;
+            --gold: #d6ad60;
         }
 
         body {
-            background-color: var(--cream);
+            background-color: var(--charcoal);
             font-family: 'Roboto', sans-serif;
             color: var(--charcoal);
             margin: 0;

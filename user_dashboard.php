@@ -69,14 +69,23 @@ $events = $stmt->fetchAll();
             background-color: #f4ebd0; /* Cream background on hover */
             color: #122620; /* Dark text on hover */
         }
+        .table {
+    border-collapse: collapse; /* Ensures borders are combined */
+    border-spacing: 0; /* Removes spacing between cells */
+    border-radius: 10px; /* Rounded corners for the entire table */
+    overflow: hidden; /* Ensures content doesn't overflow outside rounded corners */
+    border: 2px solid #b68d40; /* Border color for the entire table */
+}
+
         .table th {
             background-color: #d6ad60; /* Gold for table headers */
             color: #122620; /* Dark text on gold */
         }
         .table td {
-            background-color: #ffffff; /* White background for table data cells */
+            background-color: #f4ebd0; /* New background color */
             color: #122620; /* Dark text for readability */
         }
+
         .footer {
             color: #f4ebd0; /* Cream text for footer */
         }

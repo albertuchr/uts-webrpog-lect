@@ -1,13 +1,12 @@
 <?php
 session_start();
-require 'db_config.php'; // Database connection
+require 'db_config.php'; 
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: user_login.php");
     exit;
 }
 
-// Fetch registered events with additional information
 $stmt = $pdo->prepare("SELECT events.*, registrations.full_name, registrations.email, registrations.phone_number, registrations.date_of_birth, registrations.address 
                        FROM registrations
                        JOIN events ON registrations.event_id = events.id

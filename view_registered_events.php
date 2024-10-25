@@ -6,32 +6,25 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: user_login.php");
     exit;
 }
-
-// Handle event cancellation
 if (isset($_GET['cancel_event_id'])) {
-    $cancel_event_id = intval($_GET['cancel_event_id']); // Ensure it's an integer to prevent SQL injection
+    $cancel_event_id = intval($_GET['cancel_event_id']);
 
-    // Check if the user has actually registered for the event
     $check_stmt = $pdo->prepare("SELECT * FROM registrations WHERE event_id = ? AND user_id = ?");
     $check_stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
     $registration = $check_stmt->fetch();
 
     if ($registration) {
-        // Proceed with deleting the registration
         $delete_stmt = $pdo->prepare("DELETE FROM registrations WHERE event_id = ? AND user_id = ?");
         $delete_stmt->execute([$cancel_event_id, $_SESSION['user_id']]);
 
-        // Redirect back to the registered events page to avoid re-submission
         header("Location: view_registered_events.php");
         exit;
     } else {
-        // If the event is not found for the user, display an error message or redirect
         echo "Error: Registration not found or already canceled.";
         exit;
     }
 }
 
-// Fetch the registered events for the current user
 $stmt = $pdo->prepare("SELECT events.*, registrations.full_name, registrations.email, registrations.phone_number, registrations.date_of_birth, registrations.address 
                        FROM registrations
                        JOIN events ON registrations.event_id = events.id
@@ -46,19 +39,17 @@ $registered_events = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Registered Events</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #122620; /* Dark Charcoal Background */
-            color: #f4ebd0; /* Cream for Text */
-            font-family: 'Poppins', sans-serif; /* Poppins for general text */
+            background-color: #122620;
+            color: #f4ebd0; 
+            font-family: 'Poppins', sans-serif;
         }
         h2 {
-            font-family: 'Playfair Display', serif; /* Stylish serif font for headers */
-            color: #f4ebd0; /* Cream for headings */
+            font-family: 'Playfair Display', serif;
+            color: #f4ebd0;
             text-align: center;
             margin-top: 20px;
             font-size: 2.5rem;
@@ -70,58 +61,58 @@ $registered_events = $stmt->fetchAll();
             max-width: 90%;
         }
         .table {
-            border-radius: 10px; /* Add border radius to table */
+            border-radius: 10px; 
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
             border-collapse: separate;
-            border-spacing: 0; /* Ensure border lines look separated */
-            border: 1px solid #d6ad60; /* Gold border around the table */
+            border-spacing: 0;
+            border: 1px solid #d6ad60;
         }
         .table th, .table td {
-            border: 1px solid #d6ad60; /* Gold borders for table cells */
+            border: 1px solid #d6ad60; 
         }
         .table th {
-            background-color: #d6ad60; /* Gold for table headers */
-            color: #122620; /* Dark text for headers */
-            font-family: 'Playfair Display', serif; /* Serif font for headers */
+            background-color: #d6ad60; 
+            color: #122620;
+            font-family: 'Playfair Display', serif;
         }
         .table td {
-            background-color: #f4ebd0; /* Light cream background for table data cells */
-            color: #122620; /* Dark text for readability */
+            background-color: #f4ebd0;
+            color: #122620;
         }
         .btn-view, .btn-cancel {
             margin-right: 5px;
-            font-family: 'Poppins', sans-serif; /* Matching font */
+            font-family: 'Poppins', sans-serif; 
             font-size: 0.9rem;
         }
         .btn-view {
-            background-color: #d6ad60; /* Gold for buttons */
-            color: #122620; /* Dark text on gold buttons */
+            background-color: #d6ad60;
+            color: #122620;
         }
         .btn-cancel {
-            background-color: #f4ebd0; /* Cream for cancel button */
-            color: #122620; /* Dark text */
+            background-color: #f4ebd0;
+            color: #122620;
         }
         .btn-view:hover, .btn-cancel:hover {
-            opacity: 0.85; /* Slight opacity on hover */
+            opacity: 0.85;
         }
         .footer {
-            color: #f4ebd0; /* Cream text for footer */
+            color: #f4ebd0;
             text-align: center;
             padding: 10px 0;
         }
         a {
-            color: #d6ad60; /* Gold links */
+            color: #d6ad60;
         }
         a:hover {
-            color: #f4ebd0; /* Cream on hover */
+            color: #f4ebd0;
         }
         .btn-cancel {
-            background-color: #f4ebd0; /* Cream for cancel button */
-            color: #122620; /* Dark text */
-            padding-left: 10px;  /* Add padding to the left */
-            padding-right: 10px; /* Add padding to the right */
-            margin-left: 10px;   /* Add margin on the left to give space between buttons */
+            background-color: #f4ebd0; 
+            color: #122620;
+            padding-left: 10px;
+            padding-right: 10px; 
+            margin-left: 10px; 
         }      
     </style>
 </head>

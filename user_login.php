@@ -1,21 +1,18 @@
 <?php
 session_start();
-require 'db_config.php'; // Database connection
+require 'db_config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    // Check if user exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND role = 'user'");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Successful login, create session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
-        header("Location: user_dashboard.php"); // Redirect to user dashboard
+        header("Location: user_dashboard.php"); 
         exit;
     } else {
         $error = "Invalid email or password.";
@@ -41,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-family: "Raleway", sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5dc; /* Cream background */
+            background-color: #f5f5dc; 
         }
 
         .container {
@@ -89,22 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .top:before {
             transform: rotate(45deg);
-            background: #d2b48c; /* Tan */
+            background: #d2b48c; 
         }
 
         .top:after {
             transform: rotate(135deg);
-            background: #f5f5dc; /* Cream */
+            background: #f5f5dc;
         }
 
         .bottom:before {
             transform: rotate(-45deg);
-            background: #d4af37; /* Gold */
+            background: #d4af37; 
         }
 
         .bottom:after {
             transform: rotate(-135deg);
-            background: #333333; /* Charcoal */
+            background: #333333; 
         }
 
         .center {
@@ -125,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             z-index: 100;
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
-            color: #333; /* Charcoal */
+            color: #333; 
         }
 
         .center input {
@@ -133,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 15px;
             margin: 5px;
             border-radius: 1px;
-            border: 1px solid #d4af37; /* Gold border */
+            border: 1px solid #d4af37; 
             font-family: inherit;
         }
 
@@ -141,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             margin-top: 10px;
             width: 100%;
-            background-color: #d4af37; /* Gold */
+            background-color: #d4af37; 
             color: white;
             border: none;
             cursor: pointer;
@@ -149,13 +146,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .center button:hover {
-            background-color: #b58a2d; /* Darker Gold */
+            background-color: #b58a2d;
         }
 
         h2 {
             font-size: 24px;
             margin: 20px 0;
-            color: #333333; /* Charcoal */
+            color: #333333; 
         }
 
         p {
@@ -164,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         p a {
-            color: #d4af37; /* Gold */
+            color: #d4af37;
             text-decoration: none;
         }
 
@@ -172,12 +169,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             text-decoration: underline;
         }
 
-        /* Additional styling for the logo */
         .logo-container {
-            position: fixed; /* Use fixed so it doesn't interfere with animations */
+            position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 500; /* Keep it on top of everything */
+            z-index: 500;
         }
 
         .logo-container img {
@@ -187,8 +183,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-
-    <!-- Admin Logo - Fixed and doesn't interfere with animations -->
     <div class="logo-container">
         <a href="admin_login.php">
             <img src="logo.jpg" alt="Admin Logo" title="Go to Admin Login">

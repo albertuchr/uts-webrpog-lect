@@ -1,14 +1,12 @@
 <?php
 session_start();
-require 'db_config.php'; // Database connection
+require 'db_config.php'; 
 
-// Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
 }
 
-// Fetch all events and their registrant counts
 $stmt = $pdo->query("SELECT events.*, COUNT(registrations.id) AS total_registrants
                      FROM events
                      LEFT JOIN registrations ON events.id = registrations.event_id
@@ -27,84 +25,84 @@ $events = $stmt->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #122620; /* Charcoal */
-            color: #f4ebd0; /* Cream for text */
-            font-family: 'Garamond', serif; /* Font style set to Garamond */
+            background-color: #122620; 
+            color: #f4ebd0; 
+            font-family: 'Garamond', serif;
         }
 
         .container {
             margin-top: 30px;
             padding: 30px;
-            border-radius: 10px; /* Rounded corners for the container */
-            background-color: rgba(18, 38, 32, 0.9); /* Slightly transparent background for contrast */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            border-radius: 10px;
+            background-color: rgba(18, 38, 32, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         h2,
         h3 {
-            text-align: center; /* Center titles */
-            margin-bottom: 20px; /* Space below titles */
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         h2 {
-            font-size: 2.5em; /* Larger font size for main title */
-            font-weight: bold; /* Bold for emphasis */
+            font-size: 2.5em;
+            font-weight: bold;
         }
 
         h3 {
-            font-size: 1.8em; /* Slightly larger font for section titles */
-            font-weight: normal; /* Normal weight for section titles */
+            font-size: 1.8em;
+            font-weight: normal; 
         }
 
         .btn-gold {
-            background-color: #d6ad60; /* Gold */
-            color: #122620; /* Charcoal */
+            background-color: #d6ad60; 
+            color: #122620; 
             border: none;
-            padding: 10px 15px; /* Padding for buttons */
-            margin: 5px; /* Space between buttons */
-            transition: background-color 0.3s; /* Animation for button hover */
+            padding: 10px 15px; 
+            margin: 5px;
+            transition: background-color 0.3s;
         }
 
         .btn-gold:hover {
-            background-color: #b68d40; /* Tan */
-            color: white; /* Change hover text to white */
+            background-color: #b68d40;
+            color: white;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px; /* Space above table */
+            margin-top: 20px;
         }
 
         th {
-            padding: 12px; /* Padding for a more comfortable layout */
+            padding: 12px; 
             text-align: left;
-            border: 1px solid #f4ebd0; /* Border color set to Cream */
-            color: white; /* Keep header text white for contrast */
-            background-color: #b68d40; /* Tan for header */
-            text-transform: uppercase; /* Uppercase for header text */
+            border: 1px solid #f4ebd0; 
+            color: white;
+            background-color: #b68d40;
+            text-transform: uppercase;
         }
 
         td {
-            padding: 12px; /* Padding for a more comfortable layout */
+            padding: 12px;
             text-align: left;
-            border: 1px solid #f4ebd0; /* Border color set to Cream */
-            color: #122620; /* Charcoal for table text */
-            background-color: #f4ebd0; /* Cream for data cells */
-            font-size: 0.9em; /* Slightly smaller font size */
+            border: 1px solid #f4ebd0;
+            color: #122620;
+            background-color: #f4ebd0;
+            font-size: 0.9em;
         }
 
         img {
-            max-width: 80px; /* Increased size for images */
+            max-width: 80px;
             height: auto;
             cursor: pointer;
-            border: 2px solid #f4ebd0; /* Border for images set to Cream */
-            border-radius: 5px; /* Rounded corners */
-            transition: transform 0.3s; /* Animation for hover effect */
+            border: 2px solid #f4ebd0;
+            border-radius: 5px; 
+            transition: transform 0.3s;
         }
 
         img:hover {
-            transform: scale(1.1); /* Scale image on hover */
+            transform: scale(1.1);
         }
 
         .modal {
@@ -125,14 +123,14 @@ $events = $stmt->fetchAll();
             display: block;
             width: 80%;
             max-width: 700px;
-            border-radius: 10px; /* Rounded corners for modal */
+            border-radius: 10px;
         }
 
         .close {
             position: absolute;
             top: 20px;
             right: 30px;
-            color: #f4ebd0; /* Cream */
+            color: #f4ebd0;
             font-size: 30px;
             font-weight: bold;
             transition: 0.3s;
@@ -140,27 +138,26 @@ $events = $stmt->fetchAll();
 
         .close:hover,
         .close:focus {
-            color: #bbb; /* Change hover color */
+            color: #bbb;
             text-decoration: none;
             cursor: pointer;
         }
 
-        /* Responsive styles */
         @media (max-width: 768px) {
             img {
-                max-width: 50px; /* Smaller images on mobile */
+                max-width: 50px; 
             }
 
             h2 {
-                font-size: 2em; /* Smaller title on mobile */
+                font-size: 2em; 
             }
 
             h3 {
-                font-size: 1.5em; /* Smaller section title on mobile */
+                font-size: 1.5em; 
             }
 
             .container {
-                padding: 15px; /* Reduced padding on mobile */
+                padding: 15px; 
             }
         }
     </style>
@@ -226,7 +223,6 @@ $events = $stmt->fetchAll();
             </tbody>
         </table>
 
-        <!-- Modal for image zoom -->
         <div id="imageModal" class="modal">
             <span class="close" onclick="closeModal()">&times;</span>
             <img class="modal-content" id="modalImage">
@@ -236,15 +232,12 @@ $events = $stmt->fetchAll();
     </div>
 
     <script>
-        // Function to open modal and show full-size image
         function openModal(imageUrl) {
             var modal = document.getElementById("imageModal");
             var modalImage = document.getElementById("modalImage");
             modal.style.display = "block";
             modalImage.src = imageUrl;
         }
-
-        // Function to close the modal
         function closeModal() {
             var modal = document.getElementById("imageModal");
             modal.style.display = "none";

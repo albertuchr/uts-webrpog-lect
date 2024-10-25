@@ -7,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Fetch user details
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
@@ -20,11 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postal_code = $_POST['postal_code'];
     $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $user['password'];
 
-    // Update user details
     $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, phone = ?, location = ?, postal_code = ?, password = ? WHERE id = ?");
     $stmt->execute([$name, $email, $phone, $location, $postal_code, $password, $_SESSION['user_id']]);
 
-    $_SESSION['user_name'] = $name; // Update session name
+    $_SESSION['user_name'] = $name;
     header("Location: view_profile.php");
     exit;
 }
@@ -38,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Edit Profile</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Palet Warna */
         :root {
             --tan: #d2b48c;
             --cream: #f5f5dc;

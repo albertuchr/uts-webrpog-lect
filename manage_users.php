@@ -6,12 +6,9 @@ if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");
     exit;
 }
-
-// Fetch all users
 $stmt = $pdo->query("SELECT * FROM users WHERE role = 'user'");
 $users = $stmt->fetchAll();
 
-// Handle user deletion
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     $user_id = $_GET['id'];
     $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
@@ -46,16 +43,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .table th {
-            background-color: #d6ad60; /* Gold background for table headers */
+            background-color: #d6ad60; 
             color: white;
             font-family: futura;
         }
         .table td {
-            background-color: #f4ebd0; /* White background for table data */
+            background-color: #f4ebd0;
             color: #122620;
         }
         .btn-delete {
-            background-color: #B68D40; /* Tan color */
+            background-color: #B68D40;
             color: white;
         }
         .btn-delete:hover {

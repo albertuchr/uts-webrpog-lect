@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db_config.php'; // Database connection
+require 'db_config.php'; 
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: user_login.php");
@@ -12,7 +12,6 @@ if (!$event_id) {
     die('Event ID is missing.');
 }
 
-// Fetch event details for display
 $stmt = $pdo->prepare("SELECT * FROM events WHERE id = ?");
 $stmt->execute([$event_id]);
 $event = $stmt->fetch();
@@ -21,15 +20,12 @@ if (!$event) {
     die('Event not found.');
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = $_POST['full_name'];
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
     $date_of_birth = $_POST['date_of_birth'];
     $address = $_POST['address'];
-
-    // Insert registration with additional information
     $stmt = $pdo->prepare("INSERT INTO registrations (user_id, event_id, full_name, email, phone_number, date_of_birth, address) 
                            VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->execute([$_SESSION['user_id'], $event_id, $full_name, $email, $phone_number, $date_of_birth, $address]);
@@ -45,55 +41,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Provide Additional Information</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #122620; /* Dark Charcoal Background */
-            color: #f4ebd0; /* Cream for Text */
-            font-family: 'Poppins', sans-serif; /* Poppins for general text */
+            background-color: #122620;
+            color: #f4ebd0;
+            font-family: 'Poppins', sans-serif;
         }
         .navbar-brand {
-            font-family: 'Playfair Display', serif; /* Stylish serif font for logo */
+            font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 700;
-            color: #d6ad60 !important; /* Gold color for branding */
+            color: #d6ad60 !important;
         }
         .navbar-nav .nav-link {
             font-size: 1.2rem;
             font-weight: 500;
-            color: #f4ebd0 !important; /* Cream for navbar links */
+            color: #f4ebd0 !important;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
         }
         .navbar-nav .nav-link:hover {.na
-            color: #d6ad60 !important; /* Gold on hover */
+            color: #d6ad60 !important;
             text-decoration: underline;
         }
         .form-control {
-            background-color: #f4ebd0; /* Cream for form inputs */
-            color: #122620; /* Dark text for readability */
+            background-color: #f4ebd0;
+            color: #122620;
         }
         .form-label {
-            color: #f4ebd0; /* Cream for form labels */
+            color: #f4ebd0;
         }
         .btn-custom {
-            background-color: #d6ad60; /* Gold for buttons */
-            color: #122620; /* Dark text on gold buttons */
+            background-color: #d6ad60;
+            color: #122620;
         }
         a {
-            color: #d6ad60; /* Gold links */
+            color: #d6ad60;
         }
         a:hover {
-            color: #f4ebd0; /* Cream on hover */
+            color: #f4ebd0;
         }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Event Dashboard</a>
@@ -148,8 +140,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <br>
         <a href="user_dashboard.php" class="btn btn-outline-dark">Cancel</a>
     </div>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

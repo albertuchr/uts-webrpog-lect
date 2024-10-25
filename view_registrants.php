@@ -12,30 +12,27 @@ if (!$event_id) {
     die('Event ID is missing.');
 }
 
-// Fetch registrants with additional info for the event
 $stmt = $pdo->prepare("SELECT registrations.full_name, registrations.email, registrations.phone_number, registrations.date_of_birth, registrations.address 
                        FROM registrations
                        WHERE registrations.event_id = ?");
 $stmt->execute([$event_id]);
 $registrants = $stmt->fetchAll();
 
-// Handle CSV export
 if (isset($_POST['export_csv'])) {
     $filename = "registrants_event_$event_id.csv";
     header("Content-Type: text/csv");
     header("Content-Disposition: attachment; filename=\"$filename\"");
 
     $output = fopen('php://output', 'w');
-    fputcsv($output, ['Full Name', 'Email', 'Phone Number', 'Date of Birth', 'Address']); // CSV column headers
+    fputcsv($output, ['Full Name', 'Email', 'Phone Number', 'Date of Birth', 'Address']); 
 
     foreach ($registrants as $registrant) {
-        // Format phone number with a single quote to preserve leading zeros in Excel
         $formatted_phone_number = "'".$registrant['phone_number'];
 
         fputcsv($output, [
             $registrant['full_name'], 
             $registrant['email'], 
-            $formatted_phone_number,  // Phone number with preserved leading zero
+            $formatted_phone_number,  
             $registrant['date_of_birth'], 
             $registrant['address']
         ]);
@@ -71,16 +68,16 @@ if (isset($_POST['export_csv'])) {
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .table th {
-            background-color: #d6ad60; /* Gold background for table headers */
+            background-color: #d6ad60; 
             color: white;
             font-family: futura;
         }
         .table td {
-            background-color: #f4ebd0; /* White background for table data */
+            background-color: #f4ebd0; 
             color: #122620;
         }
         .btn-export {
-            background-color: #B68D40; /* Tan color */
+            background-color: #B68D40; 
             color: white;
             margin-top: 20px;
         }

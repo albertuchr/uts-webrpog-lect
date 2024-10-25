@@ -1,21 +1,17 @@
 <?php
 session_start();
 
-// Hardcoded admin credentials
 $admin_username = 'admin';
 $admin_password = 'admin123';
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Validate username and password
     if ($username === $admin_username && $password === $admin_password) {
-        // Successful login, set session and redirect to dashboard
-        $_SESSION['admin_id'] = 1; // Assigning a dummy admin ID
+        $_SESSION['admin_id'] = 1; 
         $_SESSION['admin_username'] = $username;
-        header("Location: admin_dashboard.php"); // Redirect to the dashboard
+        header("Location: admin_dashboard.php"); 
         exit;
     } else {
         $error = "Invalid username or password.";
@@ -41,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-family: "Raleway", sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5dc; /* Cream background */
+            background-color: #f5f5dc; 
         }
 
         .container {
@@ -70,22 +66,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .top:before {
             transform: rotate(45deg);
-            background: #d2b48c; /* Tan */
+            background: #d2b48c; 
         }
 
         .top:after {
             transform: rotate(135deg);
-            background: #f5f5dc; /* Cream */
+            background: #f5f5dc; 
         }
 
         .bottom:before {
             transform: rotate(-45deg);
-            background: #d4af37; /* Gold */
+            background: #d4af37; 
         }
 
         .bottom:after {
             transform: rotate(-135deg);
-            background: #333333; /* Charcoal */
+            background: #333333; 
         }
 
         .center {
@@ -104,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 8px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 100;
-            color: #333; /* Charcoal */
+            color: #333; 
         }
 
         .center input {
@@ -112,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 15px;
             margin: 5px;
             border-radius: 1px;
-            border: 1px solid #d4af37; /* Gold border */
+            border: 1px solid #d4af37; 
             font-family: inherit;
         }
 
@@ -120,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             margin-top: 10px;
             width: 100%;
-            background-color: #d4af37; /* Gold */
+            background-color: #d4af37; 
             color: white;
             border: none;
             cursor: pointer;
@@ -128,13 +124,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .center button:hover {
-            background-color: #b58a2d; /* Darker Gold */
+            background-color: #b58a2d; 
         }
 
         h2 {
             font-size: 24px;
             margin: 20px 0;
-            color: #333333; /* Charcoal */
+            color: #333333; 
         }
 
         p {
@@ -143,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         p a {
-            color: #d4af37; /* Gold */
+            color: #d4af37; 
             text-decoration: none;
         }
 

@@ -1,19 +1,17 @@
 <?php
 session_start();
-require 'db_config.php'; // Database connection
+require 'db_config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Encrypt the password
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); 
 
-    // Check if email already exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->rowCount() > 0) {
         $error = "Email is already registered!";
     } else {
-        // Insert user data into database
         $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'user')");
         $stmt->execute([$name, $email, $password]);
         header("Location: user_login.php");
@@ -40,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-family: "Raleway", sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5dc; /* Cream background */
+            background-color: #f5f5dc; 
         }
 
         .container {
@@ -88,22 +86,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .top:before {
             transform: rotate(45deg);
-            background: #d2b48c; /* Tan */
+            background: #d2b48c; 
         }
 
         .top:after {
             transform: rotate(135deg);
-            background: #f5f5dc; /* Cream */
+            background: #f5f5dc; 
         }
 
         .bottom:before {
             transform: rotate(-45deg);
-            background: #d4af37; /* Gold */
+            background: #d4af37; 
         }
 
         .bottom:after {
             transform: rotate(-135deg);
-            background: #333333; /* Charcoal */
+            background: #333333; 
         }
 
         .center {
@@ -124,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             z-index: 100;
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.445, 0.05, 0, 1);
-            color: #333; /* Charcoal */
+            color: #333; 
         }
 
         .center input {
@@ -132,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 15px;
             margin: 5px;
             border-radius: 1px;
-            border: 1px solid #d4af37; /* Gold border */
+            border: 1px solid #d4af37;
             font-family: inherit;
         }
 
@@ -140,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             margin-top: 10px;
             width: 100%;
-            background-color: #d4af37; /* Gold */
+            background-color: #d4af37;
             color: white;
             border: none;
             cursor: pointer;
@@ -148,13 +146,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .center button:hover {
-            background-color: #b58a2d; /* Darker Gold */
+            background-color: #b58a2d; 
         }
 
         h2 {
             font-size: 24px;
             margin: 20px 0;
-            color: #333333; /* Charcoal */
+            color: #333333; 
         }
 
         p {
@@ -163,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         p a {
-            color: #d4af37; /* Gold */
+            color: #d4af37; 
             text-decoration: none;
         }
 

@@ -7,12 +7,10 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Fetch user details
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
 
-// Fetch event registration history
 $reg_stmt = $pdo->prepare("SELECT events.name, events.date, events.location 
                            FROM registrations 
                            JOIN events ON registrations.event_id = events.id 
@@ -30,7 +28,6 @@ $registrations = $reg_stmt->fetchAll();
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Palet Warna Baru */
         :root {
             --tan: #b68d40;
             --cream: #f4ebd0;
@@ -195,7 +192,6 @@ $registrations = $reg_stmt->fetchAll();
         <p><strong>Postal Code:</strong> <?= htmlspecialchars($user['postal_code'] ?? 'Not provided'); ?></p>
     </div>
     
-    <!-- Event Registration History -->
     <div class="event-history">
         <h4>Event Registration History</h4>
         <?php if ($registrations): ?>
@@ -209,7 +205,6 @@ $registrations = $reg_stmt->fetchAll();
         <?php endif; ?>
     </div>
 
-    <!-- Profile Actions -->
     <div class="profile-actions">
         <a href="edit_profile.php" class="btn btn-custom">Edit Profile</a>
         <a href="user_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>

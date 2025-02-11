@@ -1,25 +1,30 @@
 <script>
     var arr = [10,20,30,15,21,55];
-
     var cari = 21;
-
     document.write(arr);
-
+    
     var idx = 0;
+    var jmlloop = 0;
+  
     for (var a = 0; a<arr.length; a++) {
-        
         idx = a;
+        jmlloop++;
         console.log(arr[a] + "----->" + cari);
     if(arr[a]==cari) {
         console.log("ketemu sama");
         break;
     
     }
+    else{
+        document.write("tidak ada");
+    }
     idx++;
 }
+
+
 document.write("<br>");
 document.write("Angka " + cari + " ada di index " +idx);
-
-
+document.write("<br>");
+document.write("loopingan ke " + jmlloop);
     
 </script>

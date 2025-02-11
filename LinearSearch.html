@@ -2,5 +2,24 @@
     var arr = [10,20,30,15,21,55];
 
     var cari = 21;
+
+    document.write(arr);
+
+    var idx = 0;
+    for (var a = 0; a<arr.length; a++) {
+        
+        idx = a;
+        console.log(arr[a] + "----->" + cari);
+    if(arr[a]==cari) {
+        console.log("ketemu sama");
+        break;
+    
+    }
+    idx++;
+}
+document.write("<br>");
+document.write("Angka " + cari + " ada di index " +idx);
+
+
     
 </script>

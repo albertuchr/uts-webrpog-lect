@@ -6,11 +6,18 @@
     var low = 0;
     var high = arr.length-1;
     var mid = 0;
-
+    
     while(low<=high) {
         mid = (low+high)/2;
+        console.log{arr[mid] + "----->" + cari};
         if(arr[mid]==cari) {
-            
+            break;
+        } else if(cari< arr[mid]) {
+            high = mid - 1;
+        } else if (cari > arr[mid]) {
+            low = mid +1;
         }
     }
+document.write("Angka" + cari + 'ada di index: ' + mid);
+
 </script>
